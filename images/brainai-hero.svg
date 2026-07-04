@@ -1,0 +1,155 @@
+<svg viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg" font-family="Georgia, serif">
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1A2A4A"/>
+      <stop offset="100%" stop-color="#060E1C"/>
+    </radialGradient>
+    <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4A9FD4" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#4A9FD4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C9A94A" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#C9A94A" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur1">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="blur2">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="url(#bg)"/>
+
+  <!-- Ambient glows -->
+  <ellipse cx="750" cy="300" rx="380" ry="280" fill="url(#glow1)" filter="url(#blur1)"/>
+  <ellipse cx="200" cy="300" rx="200" ry="180" fill="url(#glow2)" filter="url(#blur1)"/>
+
+  <!-- ── Neural network nodes (right side) ── -->
+  <!-- Layer 1 nodes -->
+  <circle cx="680" cy="140" r="6" fill="#4A9FD4" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="680" cy="220" r="6" fill="#4A9FD4" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="680" cy="300" r="8" fill="#6ABFFF" opacity="1"   filter="url(#glow)"/>
+  <circle cx="680" cy="380" r="6" fill="#4A9FD4" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="680" cy="460" r="6" fill="#4A9FD4" opacity="0.9" filter="url(#glow)"/>
+
+  <!-- Layer 2 nodes -->
+  <circle cx="810" cy="170" r="7" fill="#6ABFFF" opacity="0.95" filter="url(#glow)"/>
+  <circle cx="810" cy="270" r="9" fill="#90CFFF" opacity="1"    filter="url(#glow)"/>
+  <circle cx="810" cy="370" r="7" fill="#6ABFFF" opacity="0.95" filter="url(#glow)"/>
+  <circle cx="810" cy="440" r="5" fill="#4A9FD4" opacity="0.8"  filter="url(#glow)"/>
+
+  <!-- Layer 3 nodes -->
+  <circle cx="940" cy="200" r="6" fill="#4A9FD4" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="940" cy="300" r="10" fill="#C9A94A" opacity="1"   filter="url(#glow)"/>
+  <circle cx="940" cy="400" r="6" fill="#4A9FD4" opacity="0.9" filter="url(#glow)"/>
+
+  <!-- Output node -->
+  <circle cx="1060" cy="300" r="14" fill="none" stroke="#C9A94A" stroke-width="2" opacity="0.9"/>
+  <circle cx="1060" cy="300" r="8"  fill="#C9A94A" opacity="1" filter="url(#glow)"/>
+
+  <!-- ── Neural connections ── -->
+  <g stroke="#4A9FD4" stroke-width="0.8" opacity="0.35">
+    <!-- Layer 1 → 2 -->
+    <line x1="680" y1="140" x2="810" y2="170"/>
+    <line x1="680" y1="140" x2="810" y2="270"/>
+    <line x1="680" y1="220" x2="810" y2="170"/>
+    <line x1="680" y1="220" x2="810" y2="270"/>
+    <line x1="680" y1="220" x2="810" y2="370"/>
+    <line x1="680" y1="300" x2="810" y2="170"/>
+    <line x1="680" y1="300" x2="810" y2="270"/>
+    <line x1="680" y1="300" x2="810" y2="370"/>
+    <line x1="680" y1="300" x2="810" y2="440"/>
+    <line x1="680" y1="380" x2="810" y2="270"/>
+    <line x1="680" y1="380" x2="810" y2="370"/>
+    <line x1="680" y1="380" x2="810" y2="440"/>
+    <line x1="680" y1="460" x2="810" y2="370"/>
+    <line x1="680" y1="460" x2="810" y2="440"/>
+    <!-- Layer 2 → 3 -->
+    <line x1="810" y1="170" x2="940" y2="200"/>
+    <line x1="810" y1="170" x2="940" y2="300"/>
+    <line x1="810" y1="270" x2="940" y2="200"/>
+    <line x1="810" y1="270" x2="940" y2="300"/>
+    <line x1="810" y1="270" x2="940" y2="400"/>
+    <line x1="810" y1="370" x2="940" y2="300"/>
+    <line x1="810" y1="370" x2="940" y2="400"/>
+    <line x1="810" y1="440" x2="940" y2="400"/>
+    <!-- Layer 3 → output -->
+    <line x1="940" y1="200" x2="1060" y2="300"/>
+    <line x1="940" y1="300" x2="1060" y2="300"/>
+    <line x1="940" y1="400" x2="1060" y2="300"/>
+  </g>
+
+  <!-- Highlighted connections (active pathway) -->
+  <g stroke="#C9A94A" stroke-width="1.5" opacity="0.6" filter="url(#blur2)">
+    <line x1="680" y1="300" x2="810" y2="270"/>
+    <line x1="810" y1="270" x2="940" y2="300"/>
+    <line x1="940" y1="300" x2="1060" y2="300"/>
+  </g>
+  <g stroke="#6ABFFF" stroke-width="1" opacity="0.7">
+    <line x1="680" y1="300" x2="810" y2="270"/>
+    <line x1="810" y1="270" x2="940" y2="300"/>
+    <line x1="940" y1="300" x2="1060" y2="300"/>
+  </g>
+
+  <!-- ── Brain outline (stylized, left of network) ── -->
+  <g opacity="0.18" fill="none" stroke="#6ABFFF" stroke-width="1.2">
+    <path d="M 580 200 Q 620 160 660 190 Q 680 160 660 220 Q 670 230 660 260
+             Q 680 270 660 300 Q 670 330 650 350 Q 640 390 600 390
+             Q 560 400 540 370 Q 510 360 510 330 Q 490 310 500 280
+             Q 480 260 490 230 Q 480 200 510 190 Q 530 165 560 175 Z"/>
+    <path d="M 580 200 Q 570 240 580 280 Q 575 320 580 350"/>
+    <path d="M 540 230 Q 560 220 575 240 Q 590 225 605 235"/>
+    <path d="M 530 290 Q 550 275 570 290 Q 590 275 610 285"/>
+    <path d="M 535 340 Q 555 328 575 338 Q 595 325 615 335"/>
+  </g>
+
+  <!-- ── EEG wave decoration ── -->
+  <polyline points="460,300 490,300 500,260 515,340 530,300 545,300 555,280 565,320 575,300 600,300"
+            fill="none" stroke="#4A9FD4" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Grid dots background (subtle) -->
+  <g fill="#ffffff" opacity="0.04">
+    <circle cx="480" cy="160" r="1.5"/><circle cx="520" cy="160" r="1.5"/><circle cx="560" cy="160" r="1.5"/><circle cx="600" cy="160" r="1.5"/><circle cx="640" cy="160" r="1.5"/>
+    <circle cx="480" cy="200" r="1.5"/><circle cx="520" cy="200" r="1.5"/><circle cx="560" cy="200" r="1.5"/><circle cx="600" cy="200" r="1.5"/><circle cx="640" cy="200" r="1.5"/>
+    <circle cx="480" cy="240" r="1.5"/><circle cx="520" cy="240" r="1.5"/><circle cx="560" cy="240" r="1.5"/><circle cx="600" cy="240" r="1.5"/><circle cx="640" cy="240" r="1.5"/>
+    <circle cx="480" cy="380" r="1.5"/><circle cx="520" cy="380" r="1.5"/><circle cx="560" cy="380" r="1.5"/>
+    <circle cx="480" cy="420" r="1.5"/><circle cx="520" cy="420" r="1.5"/><circle cx="560" cy="420" r="1.5"/>
+  </g>
+
+  <!-- ── LEFT TEXT CONTENT ── -->
+  <!-- Eyebrow -->
+  <rect x="60" y="148" width="220" height="26" rx="13" fill="none" stroke="#C9A94A" stroke-width="1" opacity="0.5"/>
+  <text x="170" y="165" text-anchor="middle" font-family="'Inter', Arial, sans-serif" font-size="11" font-weight="600" fill="#C9A94A" letter-spacing="2" opacity="0.9">FLAGSHIP EVENT · LOLU</text>
+
+  <!-- Main title -->
+  <text x="60" y="232" font-family="Georgia, 'Times New Roman', serif" font-size="48" font-weight="700" fill="#ffffff">BrainAI</text>
+  <text x="60" y="285" font-family="Georgia, 'Times New Roman', serif" font-size="36" font-weight="400" fill="#6ABFFF">Brain Science Series</text>
+  <text x="60" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="400" fill="rgba(255,255,255,0.7)">California Championship</text>
+
+  <!-- Divider line -->
+  <line x1="60" y1="354" x2="340" y2="354" stroke="#C9A94A" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Body text -->
+  <text x="60" y="382" font-family="Arial, sans-serif" font-size="15" fill="rgba(255,255,255,0.65)" letter-spacing="0.3">Where brain science meets the next generation.</text>
+  <text x="60" y="406" font-family="Arial, sans-serif" font-size="14" fill="rgba(255,255,255,0.5)">Statewide · Grades K–12 · Brain-Computer Interface</text>
+
+  <!-- Status badge -->
+  <rect x="60" y="432" width="210" height="34" rx="17" fill="rgba(106,191,255,0.12)" stroke="#6ABFFF" stroke-width="1" opacity="0.8"/>
+  <text x="165" y="454" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#6ABFFF" letter-spacing="1.5">COMING SOON</text>
+
+  <!-- Organized by -->
+  <text x="60" y="510" font-family="Arial, sans-serif" font-size="12" fill="rgba(255,255,255,0.35)" letter-spacing="0.5">Organized by</text>
+  <text x="60" y="530" font-family="Georgia, serif" font-size="16" font-weight="600" fill="rgba(201,169,74,0.8)">Light of Life Union (LOLU)</text>
+  <text x="60" y="550" font-family="Arial, sans-serif" font-size="12" fill="rgba(255,255,255,0.3)">www.lightoflifeunion.org · lol.union.23@gmail.com</text>
+
+  <!-- Corner decoration -->
+  <rect x="0" y="0" width="4" height="600" fill="#C9A94A" opacity="0.6"/>
+  <rect x="1196" y="0" width="4" height="600" fill="#4A9FD4" opacity="0.3"/>
+</svg>

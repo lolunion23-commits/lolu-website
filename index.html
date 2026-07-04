@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Light of Life Union (LOLU) — California 501(c)(3) nonprofit. EIN: 36-5110872.">
+<title>Light of Life Union (LOLU) — Gather the glimmers to illuminate life.</title>
+<link rel="icon" href="images/logo-circle.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ═══ HERO CAROUSEL ═══ */
+.carousel {
+  position: relative; width: 100%; height: 100vh;
+  min-height: 560px; overflow: hidden; background: #0a0a0a;
+}
+.carousel-track {
+  display: flex; height: 100%;
+  transition: transform .9s cubic-bezier(.77,0,.18,1);
+  will-change: transform;
+}
+.slide {
+  flex: 0 0 100%; height: 100%; position: relative; overflow: hidden;
+}
+.slide-bg {
+  width: 100%; height: 100%; object-fit: cover; object-position: center;
+  display: block; transition: transform 8s ease-out;
+  transform: scale(1.06);
+}
+.slide.active .slide-bg { transform: scale(1); }
+.slide-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,.72) 0%, rgba(0,0,0,.3) 60%, transparent 100%);
+}
+.slide-overlay.centered {
+  background: linear-gradient(to bottom, rgba(0,0,0,.2) 0%, rgba(0,0,0,.65) 100%);
+}
+.slide-content {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 80px 80px 96px; max-width: 720px;
+}
+.slide-content.center {
+  top: 0; display: flex; flex-direction: column;
+  justify-content: flex-end; max-width: 100%; text-align: center;
+  align-items: center; padding: 60px 40px 88px;
+}
+.slide-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--gold);
+  background: rgba(201,169,74,.15); border: 1px solid rgba(201,169,74,.4);
+  padding: 5px 14px; border-radius: 20px; margin-bottom: 20px;
+}
+.slide-tag svg { width: 12px; height: 12px; }
+.slide-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 5.5vw, 68px);
+  color: #fff; line-height: 1.06; margin-bottom: 16px;
+  text-shadow: 0 2px 20px rgba(0,0,0,.4);
+}
+.slide-sub {
+  font-size: clamp(14px, 1.8vw, 18px); color: rgba(255,255,255,.8);
+  line-height: 1.65; margin-bottom: 32px; max-width: 500px;
+}
+.slide-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+.slide-content.center .slide-btns { justify-content: center; }
+
+/* Arrows */
+.carousel-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 52px; height: 52px; border-radius: 50%;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  backdrop-filter: blur(4px); color: #fff; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: .2s; z-index: 10;
+}
+.carousel-arrow:hover { background: rgba(255,255,255,.2); }
+.carousel-arrow.prev { left: 24px; }
+.carousel-arrow.next { right: 24px; }
+.carousel-arrow svg { width: 20px; height: 20px; }
+
+/* Dots */
+.carousel-dots {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 10px; z-index: 10;
+}
+.dot {
+  width: 8px; height: 8px; border-radius: 4px;
+  background: rgba(255,255,255,.4); border: none; cursor: pointer;
+  padding: 0; transition: .3s;
+}
+.dot.active { width: 28px; background: var(--gold); }
+
+/* Progress bar */
+.carousel-progress {
+  position: absolute; bottom: 0; left: 0; height: 3px;
+  background: var(--gold); z-index: 10;
+  transition: width .1s linear; opacity: .7;
+}
+
+/* ═══ ABOUT ═══ */
+.about { display: grid; grid-template-columns: 1fr 1fr; }
+.about-left { background: var(--green); padding: 88px 64px; }
+.about-left .section-label { color: var(--gold2); }
+.about-left h2 { font-family: 'Playfair Display', serif; font-size: clamp(24px,3vw,40px); color: #fff; margin-bottom: 24px; line-height: 1.2; }
+.about-left p { font-size: 15.5px; line-height: 1.8; color: rgba(255,255,255,.75); margin-bottom: 16px; }
+.about-left a { color: var(--gold2); font-size: 14px; font-weight: 600; margin-top: 8px; display: inline-flex; align-items: center; gap: 6px; }
+.about-left a svg { width: 14px; height: 14px; }
+.about-right { background: var(--cream); padding: 88px 64px; }
+.about-right h3 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--green); margin-bottom: 24px; }
+.cred-card { background: #fff; border-left: 3px solid var(--gold); border-radius: 0 var(--r) var(--r) 0; padding: 16px 20px; margin-bottom: 14px; box-shadow: var(--shadow); display: flex; gap: 14px; align-items: flex-start; }
+.cred-icon { color: var(--gold); margin-top: 2px; flex-shrink: 0; }
+.cred-icon svg { width: 18px; height: 18px; }
+.cred-label { font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.cred-val { font-size: 14px; color: var(--green); font-weight: 600; line-height: 1.4; }
+
+/* ═══ PROGRAMS ═══ */
+.programs { background: var(--light); padding: 96px 40px; }
+.prog-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; max-width: var(--max); margin: 0 auto; }
+.prog-card { background: #fff; border-radius: var(--r); padding: 22px 18px; box-shadow: var(--shadow); border-top: 3px solid var(--gold); transition: .25s; position: relative; overflow: hidden; }
+.prog-card:nth-child(2) { border-top-color: #5B9BD5; }
+.prog-card:nth-child(3) { border-top-color: #5BA06A; }
+.prog-card:nth-child(4) { border-top-color: #B56CB5; }
+.prog-card:nth-child(5) { border-top-color: #D4845A; }
+.prog-card:hover { transform: translateY(-5px); box-shadow: var(--shadow2); }
+.prog-icon { width: 44px; height: 44px; border-radius: 10px; background: rgba(201,169,74,.1); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; color: var(--gold); }
+.prog-card:nth-child(2) .prog-icon { background: rgba(91,155,213,.1); color: #5B9BD5; }
+.prog-card:nth-child(3) .prog-icon { background: rgba(91,160,106,.1); color: #5BA06A; }
+.prog-card:nth-child(4) .prog-icon { background: rgba(181,108,181,.1); color: #B56CB5; }
+.prog-card:nth-child(5) .prog-icon { background: rgba(212,132,90,.1); color: #D4845A; }
+.prog-icon svg { width: 26px; height: 26px; }
+.prog-card h3 { font-family: 'Playfair Display', serif; font-size: 14.5px; color: var(--green); margin-bottom: 5px; line-height: 1.3; }
+.prog-tag { font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.prog-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* ═══ ACTIVITIES MOSAIC ═══ */
+.activities-mosaic { background: #111; padding: 96px 40px; }
+.mosaic-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 280px 280px; gap: 12px; max-width: var(--max); margin: 0 auto; }
+.mosaic-item { border-radius: var(--r); overflow: hidden; position: relative; cursor: pointer; }
+.mosaic-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.mosaic-item:hover img { transform: scale(1.05); }
+.mosaic-item.tall { grid-row: span 2; }
+.mosaic-item.wide { grid-column: span 2; }
+.mosaic-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.6) 0%, transparent 50%); display: flex; align-items: flex-end; padding: 20px; opacity: 0; transition: .3s; }
+.mosaic-item:hover .mosaic-overlay { opacity: 1; }
+.mosaic-caption { color: #fff; font-size: 13px; font-weight: 600; }
+
+/* ═══ RECOGNITION TEASER ═══ */
+.recog-teaser { background: var(--cream); padding: 88px 40px; }
+.officials-ticker { overflow: hidden; margin: 0 auto 36px; position: relative; }
+.officials-ticker::before, .officials-ticker::after { content: ''; position: absolute; top: 0; bottom: 0; width: 72px; z-index: 2; pointer-events: none; }
+.officials-ticker::before { left: 0; background: linear-gradient(to right, var(--cream), transparent); }
+.officials-ticker::after { right: 0; background: linear-gradient(to left, var(--cream), transparent); }
+.officials-strip { display: flex; gap: 14px; width: max-content; animation: officials-scroll 32s linear infinite; }
+.officials-strip:hover { animation-play-state: paused; }
+@keyframes officials-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.official-mini { flex: 0 0 130px; text-align: center; }
+.official-mini img { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; object-position: top; margin: 0 auto 10px; border: 3px solid rgba(201,169,74,.3); transition: .25s; }
+.official-mini:hover img { border-color: var(--gold); transform: scale(1.05); }
+.official-mini .name { font-size: 12.5px; font-weight: 600; color: var(--green); line-height: 1.3; }
+.official-mini .role { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.3; }
+.recog-cta { text-align: center; }
+
+/* ═══ CERTS STRIP ═══ */
+.certs-strip { background: #111; padding: 44px 40px; }
+.certs-label { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.3); text-align: center; margin-bottom: 28px; }
+.certs-badges { display: flex; flex-wrap: wrap; justify-content: center; max-width: var(--max); margin: 0 auto; }
+.cert-badge { flex: 1; min-width: 160px; max-width: 220px; text-align: center; padding: 20px 16px; border-right: 1px solid rgba(255,255,255,.07); }
+.cert-badge:last-child { border-right: none; }
+.cert-badge-icon { margin: 0 auto 10px; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+.cert-badge-icon svg { width: 32px; height: 32px; }
+.cert-badge-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.8); margin-bottom: 3px; }
+.cert-badge-sub { font-size: 11px; color: rgba(255,255,255,.35); line-height: 1.4; }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+  .carousel { height: 80vh; min-height: 480px; }
+  .slide-content { padding: 40px 28px 80px; }
+  .slide-title { font-size: 32px; }
+  .carousel-arrow { width: 40px; height: 40px; }
+  .carousel-arrow.prev { left: 12px; }
+  .carousel-arrow.next { right: 12px; }
+  .about { grid-template-columns: 1fr; }
+  .about-left, .about-right { padding: 60px 24px; }
+  .programs { padding: 72px 20px; }
+  .prog-grid { grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .activities-mosaic { padding: 72px 20px; }
+  .mosaic-grid { grid-template-columns: 1fr 1fr; grid-template-rows: 200px 200px; }
+  .mosaic-item.wide { grid-column: span 2; }
+.recog-teaser { padding: 72px 20px; }
+  .certs-strip { padding: 36px 20px; }
+  .cert-badge { min-width: 120px; }
+}
+@media (max-width: 560px) {
+  .carousel { height: 90vh; }
+  .slide-content { padding: 32px 20px 72px; }
+  .slide-title { font-size: 28px; }
+  .slide-btns { flex-direction: column; }
+  .prog-grid { grid-template-columns: 1fr; }
+  .mosaic-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .mosaic-item.tall, .mosaic-item.wide { grid-column: span 1; grid-row: span 1; height: 220px; }
+  .certs-badges { flex-direction: column; align-items: center; }
+  .cert-badge { border-right: none; border-bottom: 1px solid rgba(255,255,255,.07); max-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="site-nav">
+  <a class="nav-brand" href="index.html">
+    <img class="nav-logo" src="images/logo-circle.png" alt="LOLU">
+    <div class="nav-brand-text">
+      <span class="nav-brand-name">Light of Life Union</span>
+      <span class="nav-brand-sub">生命微光公益联盟 · 501(c)(3)</span>
+    </div>
+  </a>
+  <button class="nav-toggle" onclick="document.getElementById('nav-menu').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-center" id="nav-menu">
+    <li><a href="index.html" class="active"><span class="en">Home</span><span class="zh">首页</span></a></li>
+    <li><a href="brainai.html"><span class="en">BrainAI</span><span class="zh">脑机接口大赛</span></a></li>
+    <li><a href="recognition.html"><span class="en">Recognition</span><span class="zh">表彰荣誉</span></a></li>
+    <li><a href="volunteer.html"><span class="en">Get Involved</span><span class="zh">参与我们</span></a></li>
+    <li><a href="contact.html"><span class="en">Contact</span><span class="zh">联系我们</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-zh" onclick="setLang('zh')">中文</button>
+    </div>
+    <a href="https://www.zeffy.com/en-US/donation-form/light-of-life-union-lolu" target="_blank" class="nav-donate">
+      <span class="en">Donate</span><span class="zh">捐款</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ══ HERO CAROUSEL ══ -->
+<section class="carousel" id="carousel">
+  <div class="carousel-track" id="carousel-track">
+
+    <!-- Slide 1: BrainAI Championship -->
+    <div class="slide active">
+      <img class="slide-bg" src="images/brainai.jpg" alt="BrainAI Championship">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="slide-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span class="en">Upcoming Event · <span class="cy"></span></span><span class="zh">即将举办 · <span class="cy"></span></span>
+        </div>
+        <h1 class="slide-title">
+          <span class="en">BrainAI Brain Science<br>California Championship</span>
+          <span class="zh">BrainAI脑机接口<br>加州锦标赛</span>
+        </h1>
+        <p class="slide-sub">
+          <span class="en">Where brain science meets the next generation. California's premier brain-computer interface competition for students K–12.</span>
+          <span class="zh">科学与青少年的相遇。加州脑机接口旗舰赛事，面向K-12学生。</span>
+        </p>
+        <div class="slide-btns">
+          <a href="brainai.html" class="btn btn-gold">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span class="en">Learn More</span><span class="zh">了解详情</span>
+          </a>
+          <a href="volunteer.html#brainai" class="btn btn-outline-white">
+            <span class="en">Register Interest</span><span class="zh">登记兴趣</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Volunteer Group -->
+    <div class="slide">
+      <img class="slide-bg" src="images/activities/volunteer-group.jpg" alt="LOLU Volunteers">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="slide-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="en">Our Team</span><span class="zh">我们的团队</span>
+        </div>
+        <h1 class="slide-title">
+          <span class="en">Passionate Volunteers,<br>Lasting Change.</span>
+          <span class="zh">热忱的志愿者，<br>持久的改变。</span>
+        </h1>
+        <p class="slide-sub">
+          <span class="en">LOLU's strength is our people — dedicated volunteers who give their time to illuminate lives across Southern California.</span>
+          <span class="zh">LOLU的力量来自我们的团队——以时间和热情点亮南加州每一个生命的志愿者们。</span>
+        </p>
+        <div class="slide-btns">
+          <a href="volunteer.html" class="btn btn-gold">
+            <span class="en">Join Our Team</span><span class="zh">加入我们</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Activity -->
+    <div class="slide">
+      <img class="slide-bg" src="images/activities/activity-1.jpg" alt="LOLU Community Activity">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="slide-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="en">Community Impact</span><span class="zh">社区影响</span>
+        </div>
+        <h1 class="slide-title">
+          <span class="en">Gathering Glimmers<br>Across California.</span>
+          <span class="zh">汇聚微光，<br>点亮加州。</span>
+        </h1>
+        <p class="slide-sub">
+          <span class="en">11+ community events in 2023–2024. From autism fundraisers to cultural concerts — every event is a glimmer of hope.</span>
+          <span class="zh">2023-2024年11余场社区活动。从自闭症募款到文化音乐会——每场活动都是一道希望之光。</span>
+        </p>
+        <div class="slide-btns">
+          <a href="index.html#programs" class="btn btn-gold">
+            <span class="en">Our Programs</span><span class="zh">我们的项目</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Group Photo -->
+    <div class="slide">
+      <img class="slide-bg" src="images/activities/group-1.jpg" alt="LOLU Community">
+      <div class="slide-overlay centered"></div>
+      <div class="slide-content center">
+        <div class="slide-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="en">Light of Life Union</span><span class="zh">生命微光公益联盟</span>
+        </div>
+        <h1 class="slide-title" style="text-align:center">
+          <span class="en">Gather the Glimmers<br>to Illuminate Life.</span>
+          <span class="zh">汇聚微光，<br>点亮生命。</span>
+        </h1>
+        <p class="slide-sub" style="text-align:center;max-width:560px">
+          <span class="en">California 501(c)(3) nonprofit. Dedicated to empowering women, supporting children, protecting our environment, and connecting communities.</span>
+          <span class="zh">加州501(c)(3)非营利组织。致力于赋能女性、支持儿童、保护环境、连接社区。</span>
+        </p>
+        <div class="slide-btns">
+          <a href="https://www.zeffy.com/en-US/donation-form/light-of-life-union-lolu" target="_blank" class="btn btn-gold">
+            <span class="en">Donate Now</span><span class="zh">立即捐款</span>
+          </a>
+          <a href="volunteer.html" class="btn btn-outline-white">
+            <span class="en">Get Involved</span><span class="zh">参与我们</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /track -->
+
+  <!-- Arrows -->
+  <button class="carousel-arrow prev" onclick="carouselMove(-1)" aria-label="Previous">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="carousel-arrow next" onclick="carouselMove(1)" aria-label="Next">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <!-- Dots -->
+  <div class="carousel-dots" id="carousel-dots">
+    <button class="dot active" onclick="goToSlide(0)"></button>
+    <button class="dot" onclick="goToSlide(1)"></button>
+    <button class="dot" onclick="goToSlide(2)"></button>
+    <button class="dot" onclick="goToSlide(3)"></button>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="carousel-progress" id="carousel-progress"></div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section class="about" id="about">
+  <div class="about-left">
+    <div class="section-label"><span class="en">Our Story</span><span class="zh">关于我们</span></div>
+    <h2><span class="en">A community built on compassion and purpose.</span><span class="zh">以慈悲与使命构建的社区。</span></h2>
+    <p><span class="en">Light of Life Union was founded on a simple but powerful belief: that every small act of kindness — every glimmer — has the power to light the way for others.</span><span class="zh">生命微光公益联盟建立在一个简单却有力的信念上：每一个小小的善举——每一道微光——都有力量照亮他人的前行之路。</span></p>
+    <p><span class="en">Based in Irvine, California, LOLU brings together volunteers, community leaders, and partner organizations to serve those who need it most.</span><span class="zh">总部位于加州尔湾，LOLU汇聚志愿者、社区领袖和合作伙伴，共同服务最需要帮助的群体。</span></p>
+    <a href="recognition.html"><span class="en">View our certifications & recognition</span><span class="zh">查看我们的资质与荣誉</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></a>
+  </div>
+  <div class="about-right">
+    <h3><span class="en">Official Credentials</span><span class="zh">官方资质信息</span></h3>
+    <div class="cred-card"><div class="cred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="cred-label">IRS 501(c)(3) · Effective Feb 19, 2024</div><div class="cred-val">EIN: 36-5110872</div></div></div>
+    <div class="cred-card"><div class="cred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div class="cred-label">CA Entity No. 5886123</div><div class="cred-val">Nonprofit Public Benefit Corporation</div></div></div>
+    <div class="cred-card"><div class="cred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="cred-label">Address</div><div class="cred-val">2 Jenner Ste. 180, Irvine, CA 92618</div></div></div>
+    <div class="cred-card"><div class="cred-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="cred-label">Contact</div><div class="cred-val"><a href="mailto:lol.union.23@gmail.com" style="color:var(--green)">lol.union.23@gmail.com</a></div></div></div>
+  </div>
+</section>
+
+<!-- ══ PROGRAMS ══ -->
+<section class="programs" id="programs">
+  <div class="section-header">
+    <div class="section-label"><span class="en">Our Programs</span><span class="zh">我们的项目</span></div>
+    <h2><span class="en">Five pillars. One mission.</span><span class="zh">五大支柱，一个使命。</span></h2>
+    <p><span class="en">Each program reflects our commitment to dignity, equity, and compassion.</span><span class="zh">每个项目都体现了我们对尊严、公平与慈悲的承诺。</span></p>
+  </div>
+  <div class="prog-grid">
+    <div class="prog-card"><div class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="9" r="5.5"/><path d="M12 14.5v7M9 19h6"/><path d="M18 4l2-2m0 0v3m0-3h-3"/></svg></div><h3><span class="en">Empowering Independent Women</span><span class="zh">支持女性独立成长</span></h3><div class="prog-tag">Women · Leadership</div><p><span class="en">Workshops, mentorship, and community networks to build confidence and independence.</span><span class="zh">通过工作坊、导师制和社区网络，帮助女性建立自信、实现独立。</span></p></div>
+    <div class="prog-card"><div class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="6" r="3"/><path d="M4 21v-2a5 5 0 0 1 8-4"/><path d="M20 13c0-1.7-1.3-3-3-3s-3 1.3-3 3c0 2.4 3 5 3 5s3-2.6 3-5z"/></svg></div><h3><span class="en">Caring for Children with Special Needs</span><span class="zh">关爱特殊儿童群体</span></h3><div class="prog-tag">Children · Inclusion</div><p><span class="en">Events, fundraising support, and advocacy for children with autism and special needs.</span><span class="zh">为自闭症及特殊需求儿童提供活动、募款支持和倡导服务。</span></p></div>
+    <div class="prog-card"><div class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div><h3><span class="en">Animal & Environmental Protection</span><span class="zh">倡导动物和环境保护</span></h3><div class="prog-tag">Environment · Sustainability</div><p><span class="en">Advocating for animal welfare and environmental sustainability through volunteer projects.</span><span class="zh">通过志愿项目推动动物福利和环境可持续发展。</span></p></div>
+    <div class="prog-card"><div class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 2h8l1 3H7L8 2z"/><rect x="7" y="5" width="10" height="12" rx="2"/><path d="M10 5v12M14 5v12M7 11h10"/><path d="M10.5 17l-1 5h5l-1-5"/></svg></div><h3><span class="en">Fostering Cultural Exchange</span><span class="zh">促进华裔社区交流</span></h3><div class="prog-tag">Culture · Community</div><p><span class="en">Building bridges through music, art, language, and community celebration.</span><span class="zh">通过音乐、艺术、语言和社区庆典架起文化桥梁。</span></p></div>
+    <div class="prog-card"><div class="prog-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg></div><h3><span class="en">Bridging Technology & Compassion</span><span class="zh">搭建科技与情感融合</span></h3><div class="prog-tag">Technology · Innovation</div><p><span class="en">Harnessing AI and brain science to create meaningful social impact — including our BrainAI Championship.</span><span class="zh">利用AI与脑科学创造社会影响，包括BrainAI脑机接口大赛。</span></p></div>
+  </div>
+</section>
+
+<!-- ══ ACTIVITY MOSAIC ══ -->
+<section class="activities-mosaic">
+  <div class="section-header light">
+    <div class="section-label"><span class="en">Community in Action</span><span class="zh">社区行动</span></div>
+    <h2><span class="en">A year of connection, care & celebration.</span><span class="zh">连接、关怀与庆祝的一年。</span></h2>
+  </div>
+  <div class="mosaic-grid">
+    <div class="mosaic-item tall">
+      <a href="volunteer.html" style="display:block;width:100%;height:100%">
+      <img src="images/activities/volunteer-group.jpg" alt="Volunteers">
+      <div class="mosaic-overlay"><div class="mosaic-caption"><span class="en">Our Volunteer Team →</span><span class="zh">我们的志愿者团队 →</span></div></div>
+      </a>
+    </div>
+    <div class="mosaic-item wide">
+      <a href="recognition.html" style="display:block;width:100%;height:100%">
+      <img src="images/activities/activity-1.jpg" alt="Activity">
+      <div class="mosaic-overlay"><div class="mosaic-caption"><span class="en">Community Events →</span><span class="zh">社区活动 →</span></div></div>
+      </a>
+    </div>
+    <div class="mosaic-item">
+      <a href="recognition.html" style="display:block;width:100%;height:100%">
+      <img src="images/activities/activity-2.jpg" alt="Activity 2">
+      <div class="mosaic-overlay"><div class="mosaic-caption"><span class="en">In the Field →</span><span class="zh">活动现场 →</span></div></div>
+      </a>
+    </div>
+    <div class="mosaic-item">
+      <a href="volunteer.html" style="display:block;width:100%;height:100%">
+      <img src="images/activities/group-1.jpg" alt="Group Photo">
+      <div class="mosaic-overlay"><div class="mosaic-caption"><span class="en">Together We Shine →</span><span class="zh">共同闪光 →</span></div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RECOGNITION TEASER ══ -->
+<section class="recog-teaser" id="recognition">
+  <div class="section-header">
+    <div class="section-label"><span class="en">Community Recognition</span><span class="zh">社区表彰</span></div>
+    <h2><span class="en">Trusted by leaders across California.</span><span class="zh">获加州各界领导人认可。</span></h2>
+    <p><span class="en">LOLU received certificates of recognition from elected officials, Congress members, and community leaders in 2023–2024.</span><span class="zh">2023-2024年，LOLU获得民选官员、国会议员及社区领袖的认可证书。</span></p>
+  </div>
+  <div class="officials-ticker">
+    <div class="officials-strip" aria-hidden="false">
+    <div class="official-mini"><img src="images/official-1-scotty-hong.jpg" alt="Scotty Hong"><div class="name">Scotty Hong</div><div class="role"><span class="en">Rep. of Irvine Mayor</span><span class="zh">尔湾市长代表</span></div></div>
+    <div class="official-mini"><img src="images/official-2-james-mai.jpg" alt="James Mai"><div class="name">James Mai</div><div class="role"><span class="en">Vice Mayor, Irvine</span><span class="zh">尔湾副市长</span></div></div>
+    <div class="official-mini"><img src="images/official-3-melinda-liu.jpg" alt="Melinda Liu"><div class="name">Melinda Liu</div><div class="role"><span class="en">Irvine City Council</span><span class="zh">尔湾市议员</span></div></div>
+    <div class="official-mini"><img src="images/official-4-william-go.jpg" alt="William Go"><div class="name">William Go</div><div class="role"><span class="en">Irvine City Council</span><span class="zh">尔湾市议员</span></div></div>
+    <div class="official-mini"><img src="images/official-5-zhang-sujiu.jpg" alt="Zhang Sujiu"><div class="name">Ms. Zhang Sujiu</div><div class="role"><span class="en">Franklin Foundation</span><span class="zh">富兰克林基金会</span></div></div>
+    <div class="official-mini"><img src="images/official-6-paul-cheng.jpg" alt="Paul Cheng"><div class="name">Paul Cheng</div><div class="role"><span class="en">Arcadia City Council</span><span class="zh">阿凯迪亚市议员</span></div></div>
+    <div class="official-mini"><img src="images/official-7-judy-chu.jpg" alt="Dr. Judy Chu"><div class="name">Dr. Judy Chu</div><div class="role"><span class="en">U.S. Congresswoman</span><span class="zh">美国国会议员</span></div></div>
+    <div class="official-mini"><img src="images/official-8-wu-lilun.jpg" alt="Wu Lilun"><div class="name">Mr. Wu Lilun</div><div class="role"><span class="en">Mayor of Walnut</span><span class="zh">核桃市长</span></div></div>
+    <div class="official-mini"><img src="images/official-1-scotty-hong.jpg" alt="Scotty Hong"><div class="name">Scotty Hong</div><div class="role"><span class="en">Rep. of Irvine Mayor</span><span class="zh">尔湾市长代表</span></div></div>
+    <div class="official-mini"><img src="images/official-2-james-mai.jpg" alt="James Mai"><div class="name">James Mai</div><div class="role"><span class="en">Vice Mayor, Irvine</span><span class="zh">尔湾副市长</span></div></div>
+    <div class="official-mini"><img src="images/official-3-melinda-liu.jpg" alt="Melinda Liu"><div class="name">Melinda Liu</div><div class="role"><span class="en">Irvine City Council</span><span class="zh">尔湾市议员</span></div></div>
+    <div class="official-mini"><img src="images/official-4-william-go.jpg" alt="William Go"><div class="name">William Go</div><div class="role"><span class="en">Irvine City Council</span><span class="zh">尔湾市议员</span></div></div>
+    <div class="official-mini"><img src="images/official-5-zhang-sujiu.jpg" alt="Zhang Sujiu"><div class="name">Ms. Zhang Sujiu</div><div class="role"><span class="en">Franklin Foundation</span><span class="zh">富兰克林基金会</span></div></div>
+    <div class="official-mini"><img src="images/official-6-paul-cheng.jpg" alt="Paul Cheng"><div class="name">Paul Cheng</div><div class="role"><span class="en">Arcadia City Council</span><span class="zh">阿凯迪亚市议员</span></div></div>
+    <div class="official-mini"><img src="images/official-7-judy-chu.jpg" alt="Dr. Judy Chu"><div class="name">Dr. Judy Chu</div><div class="role"><span class="en">U.S. Congresswoman</span><span class="zh">美国国会议员</span></div></div>
+    <div class="official-mini"><img src="images/official-8-wu-lilun.jpg" alt="Wu Lilun"><div class="name">Mr. Wu Lilun</div><div class="role"><span class="en">Mayor of Walnut</span><span class="zh">核桃市长</span></div></div>
+    </div>
+  </div>
+  <div class="recog-cta">
+    <a href="recognition.html" class="btn btn-outline-green"><span class="en">View All Certificates & Recognition</span><span class="zh">查看全部证书与荣誉</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><polyline points="9 18 15 12 9 6"/></svg></a>
+  </div>
+</section>
+
+<!-- ══ CERTS STRIP ══ -->
+<section class="certs-strip">
+  <div class="certs-label"><span class="en">Certifications & Recognition</span><span class="zh">认证与荣誉</span></div>
+  <div class="certs-badges">
+    <div class="cert-badge"><div class="cert-badge-icon" style="color:#C9A94A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 22V12a9 9 0 1 1 18 0v10"/><path d="M3 15h18M9 22v-7h6v7"/></svg></div><div class="cert-badge-title">IRS 501(c)(3)</div><div class="cert-badge-sub"><span class="en">Effective Feb 19, 2024</span><span class="zh">2024年2月生效</span></div></div>
+    <div class="cert-badge"><div class="cert-badge-icon" style="color:#5B9BD5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div class="cert-badge-title"><span class="en">California</span><span class="zh">加州认证</span></div><div class="cert-badge-sub">CA #5886123</div></div>
+    <div class="cert-badge"><div class="cert-badge-icon" style="color:#E05555"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div class="cert-badge-title"><span class="en">U.S. Congress</span><span class="zh">美国国会</span></div><div class="cert-badge-sub">Dr. Judy Chu</div></div>
+    <div class="cert-badge"><div class="cert-badge-icon" style="color:#5BA06A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="cert-badge-title"><span class="en">City of Irvine</span><span class="zh">尔湾市</span></div><div class="cert-badge-sub"><span class="en">Mayor & Council</span><span class="zh">市长及市议会</span></div></div>
+    <div class="cert-badge"><div class="cert-badge-icon" style="color:#E8CB7A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="cert-badge-title"><span class="en">Tax-Deductible</span><span class="zh">捐款可抵税</span></div><div class="cert-badge-sub">EIN 36-5110872</div></div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img class="footer-brand-logo" src="images/logo-circle.png" alt="LOLU">
+        <div class="footer-name">Light of Life Union (LOLU)</div>
+        <div class="footer-name-zh">生命微光公益联盟</div>
+        <p><span class="en">California 501(c)(3) nonprofit. Donations are tax-deductible. EIN: 36-5110872.</span><span class="zh">加州501(c)(3)非营利组织。捐款可抵税。EIN: 36-5110872。</span></p>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> 2 Jenner Ste. 180, Irvine, CA 92618</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:lol.union.23@gmail.com">lol.union.23@gmail.com</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><a href="https://www.lightoflifeunion.org">www.lightoflifeunion.org</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4><span class="en">Pages</span><span class="zh">页面</span></h4>
+        <ul>
+          <li><a href="index.html"><span class="en">Home</span><span class="zh">首页</span></a></li>
+          <li><a href="brainai.html">BrainAI</a></li>
+          <li><a href="recognition.html"><span class="en">Recognition</span><span class="zh">荣誉</span></a></li>
+          <li><a href="volunteer.html"><span class="en">Get Involved</span><span class="zh">参与</span></a></li>
+          <li><a href="contact.html"><span class="en">Contact</span><span class="zh">联系</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4><span class="en">Get Involved</span><span class="zh">参与我们</span></h4>
+        <ul>
+          <li><a href="https://www.zeffy.com/en-US/donation-form/light-of-life-union-lolu" target="_blank"><span class="en">Donate</span><span class="zh">捐款</span></a></li>
+          <li><a href="volunteer.html"><span class="en">Volunteer</span><span class="zh">志愿者</span></a></li>
+          <li><a href="brainai.html">BrainAI <span class="en">Championship</span><span class="zh">大赛</span></a></li>
+          <li><a href="contact.html"><span class="en">Contact Us</span><span class="zh">联系我们</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-ein">© <span class="cy"></span> Light of Life Union · EIN 36-5110872 · CA #5886123</span>
+      <div class="footer-bottom-links"><a href="mailto:lol.union.23@gmail.com"><span class="en">Contact</span><span class="zh">联系</span></a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Language ── */
+function setLang(lang) {
+  document.body.classList.toggle('lang-zh', lang === 'zh');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+  document.documentElement.lang = lang === 'zh' ? 'zh' : 'en';
+  localStorage.setItem('lolu-lang', lang);
+}
+(function(){ var s=localStorage.getItem('lolu-lang')||'en'; if(s==='zh') setLang('zh'); })();
+
+/* ── Carousel ── */
+var total = 4, cur = 0, timer, progressTimer, progressVal = 0;
+var INTERVAL = 10000;
+var paused = false;
+
+function updateCarousel() {
+  var track = document.getElementById('carousel-track');
+  track.style.transform = 'translateX(-' + cur*100 + '%)';
+  document.querySelectorAll('.slide').forEach(function(s,i){ s.classList.toggle('active', i===cur); });
+  document.querySelectorAll('.dot').forEach(function(d,i){ d.classList.toggle('active', i===cur); });
+  resetProgress();
+}
+function carouselMove(dir) {
+  cur = (cur + dir + total) % total;
+  updateCarousel();
+  restartAuto();
+}
+function goToSlide(n) { cur = n; updateCarousel(); restartAuto(); }
+function resetProgress() {
+  clearInterval(progressTimer); progressVal = 0;
+  var bar = document.getElementById('carousel-progress');
+  bar.style.width = '0%';
+  progressTimer = setInterval(function(){
+    if (!paused) {
+      progressVal += 100 / (INTERVAL / 50);
+      bar.style.width = Math.min(progressVal, 100) + '%';
+    }
+  }, 50);
+}
+function restartAuto() {
+  clearInterval(timer);
+  timer = setInterval(function(){ if (!paused) carouselMove(1); }, INTERVAL);
+}
+
+// Hover pause
+var carousel = document.getElementById('carousel');
+carousel.addEventListener('mouseenter', function(){ paused = true; });
+carousel.addEventListener('mouseleave', function(){ paused = false; });
+
+// Touch swipe
+var touchX = 0;
+document.getElementById('carousel-track').addEventListener('touchstart', function(e){ touchX = e.touches[0].clientX; }, {passive:true});
+document.getElementById('carousel-track').addEventListener('touchend', function(e){
+  var dx = e.changedTouches[0].clientX - touchX;
+  if (Math.abs(dx) > 50) carouselMove(dx > 0 ? -1 : 1);
+}, {passive:true});
+
+// Mouse drag
+var dragX = 0, dragging = false;
+var track = document.getElementById('carousel-track');
+track.addEventListener('mousedown', function(e){ dragging = true; dragX = e.clientX; e.preventDefault(); });
+window.addEventListener('mousemove', function(e){ if (dragging) e.preventDefault(); });
+window.addEventListener('mouseup', function(e){
+  if (!dragging) return; dragging = false;
+  var dx = e.clientX - dragX;
+  if (Math.abs(dx) > 50) carouselMove(dx > 0 ? -1 : 1);
+});
+
+restartAuto(); resetProgress();
+
+/* ── Dynamic year ── */
+document.querySelectorAll('.cy').forEach(function(el){ el.textContent = new Date().getFullYear(); });
+</script>
+
+<!-- Floating language toggle -->
+<button class="lang-float" id="lang-float-btn" onclick="toggleLangFloat()" title="Switch language">
+  <span id="lang-float-label">中文</span>
+</button>
+<script>
+function toggleLangFloat(){
+  var isZh = document.body.classList.contains('lang-zh');
+  setLang(isZh ? 'en' : 'zh');
+  document.getElementById('lang-float-label').textContent = isZh ? '中文' : 'EN';
+}
+(function(){
+  var s = localStorage.getItem('lolu-lang') || 'en';
+  document.getElementById('lang-float-label').textContent = s === 'zh' ? 'EN' : '中文';
+})();
+</script>
+</body>
+</html>

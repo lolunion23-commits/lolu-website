@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recognition & Certificates — Light of Life Union (LOLU)</title>
+<link rel="icon" href="images/logo-circle.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* PAGE HERO */
+.page-hero {
+  background: linear-gradient(135deg, var(--green) 0%, var(--green2) 60%, #3A7264 100%);
+  padding: 96px 40px 80px; text-align: center; position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 120%, rgba(201,169,74,.12) 0%, transparent 60%);
+}
+.page-hero .section-label { justify-content: center; color: var(--gold2); position: relative; }
+.page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px,5vw,56px); color: #fff; margin-bottom: 18px; line-height: 1.1; position: relative; }
+.page-hero p { font-size: 17px; color: rgba(255,255,255,.72); max-width: 560px; margin: 0 auto; line-height: 1.75; position: relative; }
+
+/* OFFICIALS */
+.officials-section { background: var(--cream); padding: 96px 40px; }
+.officials-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; max-width: var(--max); margin: 0 auto; }
+.official-card {
+  background: #fff; border-radius: var(--r); overflow: hidden;
+  box-shadow: var(--shadow); transition: .3s;
+}
+.official-card:hover { transform: translateY(-6px); box-shadow: var(--shadow2); }
+.official-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; display: block; }
+.official-info { padding: 18px 16px 20px; }
+.official-name { font-size: 15px; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+.official-title { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.official-badge {
+  display: inline-block; margin-top: 10px; font-size: 10px;
+  font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  background: rgba(201,169,74,.1); color: var(--gold); border-radius: 20px;
+  padding: 3px 10px;
+}
+
+/* CERTIFICATES */
+.certs-section { background: #fafafa; padding: 96px 40px; }
+.certs-intro { max-width: var(--max); margin: 0 auto 48px; }
+.certs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; max-width: var(--max); margin: 0 auto; }
+.cert-item {
+  background: #fff; border-radius: var(--r); overflow: hidden;
+  box-shadow: var(--shadow); transition: .3s; cursor: pointer;
+  border: 1px solid var(--border);
+}
+.cert-item:hover { transform: scale(1.02); box-shadow: var(--shadow2); border-color: var(--gold); }
+.cert-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+.cert-label-bar { padding: 14px 16px; display: flex; align-items: center; gap: 10px; }
+.cert-num { width: 28px; height: 28px; border-radius: 50%; background: var(--green); color: var(--gold); font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cert-name { font-size: 13px; font-weight: 600; color: var(--green); }
+
+/* LIGHTBOX */
+.lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 500; align-items: center; justify-content: center; padding: 20px; }
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: var(--r); box-shadow: 0 20px 80px rgba(0,0,0,.5); }
+.lightbox-close { position: fixed; top: 24px; right: 28px; background: none; border: none; cursor: pointer; color: rgba(255,255,255,.7); font-size: 32px; line-height: 1; transition: .2s; }
+.lightbox-close:hover { color: #fff; }
+
+/* STATS BAR */
+.stats-bar { background: var(--green); padding: 56px 40px; }
+.stats-inner { max-width: var(--max); margin: 0 auto; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 32px; }
+.stat-item { text-align: center; }
+.stat-big { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; color: var(--gold); line-height: 1; }
+.stat-desc { font-size: 13px; color: rgba(255,255,255,.6); margin-top: 8px; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .page-hero { padding: 72px 24px 60px; }
+  .officials-section, .certs-section { padding: 72px 20px; }
+  .officials-grid { grid-template-columns: repeat(2,1fr); gap: 16px; }
+  .certs-grid { grid-template-columns: repeat(2,1fr); gap: 18px; }
+  .stats-bar { padding: 40px 20px; }
+}
+@media (max-width: 560px) {
+  .officials-grid { grid-template-columns: repeat(2,1fr); gap: 12px; }
+  .certs-grid { grid-template-columns: 1fr; }
+  .stats-inner { gap: 24px; }
+  .stat-big { font-size: 40px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a class="nav-brand" href="index.html">
+    <img class="nav-logo" src="images/logo-circle.png" alt="LOLU">
+    <div class="nav-brand-text">
+      <span class="nav-brand-name">Light of Life Union</span>
+      <span class="nav-brand-sub">生命微光公益联盟 · 501(c)(3)</span>
+    </div>
+  </a>
+  <button class="nav-toggle" onclick="document.getElementById('nav-menu').classList.toggle('open')" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-center" id="nav-menu" style="margin-left:auto">
+    <li><a href="index.html"><span class="en">Home</span><span class="zh">首页</span></a></li>
+    <li><a href="brainai.html">BrainAI</a></li>
+    <li><a href="recognition.html" class="active"><span class="en">Recognition</span><span class="zh">表彰荣誉</span></a></li>
+    <li><a href="volunteer.html"><span class="en">Get Involved</span><span class="zh">参与我们</span></a></li>
+    <li><a href="contact.html"><span class="en">Contact</span><span class="zh">联系我们</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" id="btn-zh" onclick="setLang('zh')">中文</button>
+    </div>
+    <a href="https://www.zeffy.com/en-US/donation-form/light-of-life-union-lolu" target="_blank" class="nav-donate">
+      <span class="en">Donate</span><span class="zh">捐款</span>
+    </a>
+  </div>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="section-label"><span class="en">Recognition & Certificates</span><span class="zh">表彰与证书</span></div>
+  <h1><span class="en">Recognized by Leaders Across California</span><span class="zh">获加州各界领导人表彰</span></h1>
+  <p><span class="en">LOLU has received recognition from elected officials, U.S. Congress members, and community leaders — and holds 10 certificates of appreciation and achievement.</span><span class="zh">LOLU获得民选官员、美国国会议员及社区领袖的认可，持有10项感谢与成就证书。</span></p>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-big">8</div><div class="stat-desc"><span class="en">Officials who recognized LOLU</span><span class="zh">表彰LOLU的官员</span></div></div>
+    <div class="stat-item"><div class="stat-big">10</div><div class="stat-desc"><span class="en">Certificates of recognition</span><span class="zh">荣誉证书数量</span></div></div>
+    <div class="stat-item"><div class="stat-big">3</div><div class="stat-desc"><span class="en">Levels of government recognition</span><span class="zh">政府认可级别</span></div></div>
+    <div class="stat-item"><div class="stat-big">2024</div><div class="stat-desc"><span class="en">Year of IRS 501(c)(3) approval</span><span class="zh">IRS 501(c)(3)批准年份</span></div></div>
+  </div>
+</div>
+
+<!-- OFFICIALS -->
+<section class="officials-section" id="officials">
+  <div class="section-header">
+    <div class="section-label"><span class="en">Official Recognition</span><span class="zh">官方认可</span></div>
+    <h2><span class="en">8 Officials Who Recognized LOLU</span><span class="zh">表彰LOLU的8位官员</span></h2>
+    <p><span class="en">In 2023–2024, these elected officials and community leaders personally presented LOLU with certificates of recognition.</span><span class="zh">2023-2024年，以下民选官员和社区领袖亲自向LOLU颁发认可证书。</span></p>
+  </div>
+  <div class="officials-grid">
+    <div class="official-card">
+      <img class="official-photo" src="images/official-1-scotty-hong.jpg" alt="Scotty Hong">
+      <div class="official-info">
+        <div class="official-name">Scotty Hong</div>
+        <div class="official-title"><span class="en">Representative of the Mayor of Irvine</span><span class="zh">尔湾市长代表</span></div>
+        <div class="official-badge"><span class="en">City of Irvine</span><span class="zh">尔湾市</span></div>
+      </div>
+    </div>
+    <div class="official-card">
+      <img class="official-photo" src="images/official-2-james-mai.jpg" alt="James Mai">
+      <div class="official-info">
+        <div class="official-name">James Mai</div>
+        <div class="official-title"><span class="en">Vice Mayor of Irvine</span><span class="zh">尔湾副市长</span></div>
+        <div class="official-badge"><span class="en">City of Irvine</span><span class="zh">尔湾市</span></div>
+      </div>
+    </div>
+    <div class="official-card">
+      <img class="official-photo" src="images/official-3-melinda-liu.jpg" alt="Melinda Liu">
+      <div class="official-info">
+        <div class="official-name">Melinda Liu</div>
+        <div class="official-title"><span class="en">Irvine City Council Member</span><span class="zh">尔湾市议员</span></div>
+        <div class="official-badge"><span class="en">City of Irvine</span><span class="zh">尔湾市</span></div>
+      </div>
+    </div>
+    <div class="official-card">
+      <img class="official-photo" src="images/official-4-william-go.jpg" alt="William Go">
+      <div class="official-info">
+        <div class="official-name">William Go</div>
+        <div class="official-title"><span class="en">Irvine City Council Member</span><span class="zh">尔湾市议员</span></div>
+        <div class="official-badge"><span class="en">City of Irvine</span><span class="zh">尔湾市</span></div>
+      </div>
+    </div>
+    <div class="official-card">
+      <img class="official-photo" src="images/official-5-zhang-sujiu.jpg" alt="Ms. Zhang Sujiu">
+      <div class="official-info">
+        <div class="official-name">Ms. Zhang Sujiu <span style="font-size:11px;color:var(--muted)">张素久</span></div>
+        <div class="official-title"><span class="en">Chief Honorary Advisor, Franklin Foundation</span><span class="zh">富兰克林基金会首席荣誉顾问</span></div>
+        <div class="official-badge"><span class="en">Community</span><span class="zh">社区</span></div>
+      </div>
+    </div>
+    <div class="official-card">
+      <img class="official-photo" src="images/official-6-paul-cheng.jpg" alt="Paul Cheng">
+      <div class="official-info">
+        <div class="official-name">Paul Cheng</div>
+        <div class="official-title"><span class="en">Arcadia City Council Member</span><span class="zh">阿凯迪亚市议员</span></div>
+        <div class="official-badge"><span class="en">City of Arcadia</span><span class="zh">阿凯迪亚市</span></div>
+      </div>
+    </div>
+    <div class="official-card">
+      <img class="official-photo" src="images/official-7-judy-chu.jpg" alt="Dr. Judy Chu">
+      <div class="official-info">
+        <div class="official-name">Dr. Judy Chu <span style="font-size:11px;color:var(--muted)">赵美心</span></div>
+        <div class="official-title"><span class="en">U.S. Congresswoman</span><span class="zh">美国国会议员</span></div>
+        <div class="official-badge"><span class="en">U.S. Congress</span><span class="zh">美国国会</span></div>
+      </div>
+    </div>
+    <div class="official-card">
+      <img class="official-photo" src="images/official-8-wu-lilun.jpg" alt="Mr. Wu Lilun">
+      <div class="official-info">
+        <div class="official-name">Mr. Wu Lilun <span style="font-size:11px;color:var(--muted)">伍立伦</span></div>
+        <div class="official-title"><span class="en">Mayor of Walnut</span><span class="zh">核桃市长</span></div>
+        <div class="official-badge"><span class="en">City of Walnut</span><span class="zh">核桃市</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES GALLERY -->
+<section class="certs-section" id="certs">
+  <div class="section-header">
+    <div class="section-label"><span class="en">Certificates Gallery</span><span class="zh">证书展示</span></div>
+    <h2><span class="en">10 Certificates of Recognition</span><span class="zh">10项荣誉证书</span></h2>
+    <p><span class="en">Click any certificate to view in full size. &nbsp;|&nbsp; <a href="images/irs-letter.jpg" target="_blank" style="color:var(--gold);font-weight:600">View our IRS Determination Letter →</a></span><span class="zh">点击任意证书可查看大图。&nbsp;|&nbsp; <a href="images/irs-letter.jpg" target="_blank" style="color:var(--gold);font-weight:600">查看IRS税务豁免认定函 →</a></span></p>
+  </div>
+  <div class="certs-grid">
+    <div class="cert-item" onclick="openLightbox('images/certs/cert-01.jpg')">
+      <img src="images/certs/cert-01.jpg" alt="Certificate 1" loading="lazy">
+      <div class="cert-label-bar"><div class="cert-num">1</div><div class="cert-name"><span class="en">Certificate of Recognition</span><span class="zh">荣誉证书</span></div></div>
+    </div>
+    <div class="cert-item" onclick="openLightbox('images/certs/cert-02.jpg')">
+      <img src="images/certs/cert-02.jpg" alt="Certificate 2" loading="lazy">
+      <div class="cert-label-bar"><div class="cert-num">2</div><div class="cert-name"><span class="en">Certificate of Recognition</span><span class="zh">荣誉证书</span></div></div>
+    </div>
+    <div class="cert-item" onclick="openLightbox('images/certs/cert-03.jpg')">
+      <img src="images/certs/cert-03.jpg" alt="Certificate 3" loading="lazy">
+      <div class="cert-label-bar"><div class="cert-num">3</div><div class="cert-name"><span class="en">Certificate of Recognition</span><span class="zh">荣誉证书</span></div></div>
+    </div>
+    <div class="cert-item" onclick="openLightbox('images/certs/cert-04.jpg')">
+      <img src="images/certs/cert-04.jpg" alt="Certificate 4" loading="lazy">
+      <div class="cert-label-bar"><div class="cert-num">4</div><div class="cert-name"><span class="en">Certificate of Recognition</span><span class="zh">荣誉证书</span></div></div>
+    </div>
+    <div class="cert-item" onclick="openLightbox('images/certs/cert-05.jpg')">
+      <img src="images/certs/cert-05.jpg" alt="Certificate 5" loading="lazy">
+      <div class="cert-label-bar"><div class="cert-num">5</div><div class="cert-name"><span class="en">Certificate of Recognition</span><span class="zh">荣誉证书</span></div></div>
+    </div>
+    <div class="cert-item" onclick="openLightbox('images/certs/cert-06.jpg')">
+      <img src="images/certs/cert-06.jpg" alt="Certificate 6" loading="lazy">
+      <div class="cert-label-bar"><div class="cert-num">6</div><div class="cert-name"><span class="en">Certificate of Recognition</span><span class="zh">荣誉证书</span></div></div>
+    </div>
+    <div class="cert-item" onclick="openLightbox('images/certs/cert-07.jpg')">
+      <img src="images/certs/cert-07.jpg" alt="Certificate 7" loading="lazy">
+      <div class="cert-label-bar"><div class="cert-num">7</div><div class="cert-name"><span class="en">Certificate of Recognition</span><span class="zh">荣誉证书</span></div></div>
+    </div>
+    <div class="cert-item" onclick="openLightbox('images/certs/cert-08.jpg')">
+      <img src="images/certs/cert-08.jpg" alt="Certificate 8" loading="lazy">
+      <div class="cert-label-bar"><div class="cert-num">8</div><div class="cert-name"><span class="en">Certificate of Recognition</span><span class="zh">荣誉证书</span></div></div>
+    </div>
+    <div class="cert-item" onclick="openLightbox('images/certs/cert-09.jpg')">
+      <img src="images/certs/cert-09.jpg" alt="Certificate 9" loading="lazy">
+      <div class="cert-label-bar"><div class="cert-num">9</div><div class="cert-name"><span class="en">Certificate of Recognition</span><span class="zh">荣誉证书</span></div></div>
+    </div>
+    <div class="cert-item" onclick="openLightbox('images/certs/cert-10.jpg')">
+      <img src="images/certs/cert-10.jpg" alt="Certificate 10" loading="lazy">
+      <div class="cert-label-bar"><div class="cert-num">10</div><div class="cert-name"><span class="en">Certificate of Recognition</span><span class="zh">荣誉证书</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img class="footer-brand-logo" src="images/logo-circle.png" alt="LOLU">
+        <div class="footer-name">Light of Life Union (LOLU)</div>
+        <div class="footer-name-zh">生命微光公益联盟</div>
+        <p><span class="en">A California 501(c)(3) nonprofit. Donations are tax-deductible to the extent permitted by law.</span><span class="zh">加州501(c)(3)非营利组织。捐款在法律允许范围内可抵税。</span></p>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> 2 Jenner Ste. 180, Irvine, CA 92618</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:lol.union.23@gmail.com">lol.union.23@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4><span class="en">Pages</span><span class="zh">页面</span></h4>
+        <ul>
+          <li><a href="index.html"><span class="en">Home</span><span class="zh">首页</span></a></li>
+          <li><a href="recognition.html"><span class="en">Recognition</span><span class="zh">荣誉</span></a></li>
+          <li><a href="volunteer.html"><span class="en">Get Involved</span><span class="zh">参与</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4><span class="en">Get Involved</span><span class="zh">参与我们</span></h4>
+        <ul>
+          <li><a href="https://www.zeffy.com/en-US/donation-form/light-of-life-union-lolu" target="_blank"><span class="en">Donate Now</span><span class="zh">立即捐款</span></a></li>
+          <li><a href="volunteer.html"><span class="en">Volunteer</span><span class="zh">志愿者</span></a></li>
+          <li><a href="mailto:lol.union.23@gmail.com"><span class="en">Contact Us</span><span class="zh">联系我们</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-ein">© <span class="cy"></span> Light of Life Union · EIN 36-5110872</span>
+      <div class="footer-bottom-links"><a href="index.html"><span class="en">Home</span><span class="zh">首页</span></a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.body.classList.toggle('lang-zh', lang === 'zh');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+  localStorage.setItem('lolu-lang', lang);
+}
+(function() { var s = localStorage.getItem('lolu-lang') || 'en'; if (s === 'zh') setLang('zh'); })();
+function openLightbox(src) { document.getElementById('lightbox-img').src = src; document.getElementById('lightbox').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeLightbox(); });
+</script>
+<button class="lang-float" id="lang-float-btn" onclick="toggleLangFloat()" title="Switch language">
+  <span id="lang-float-label">中文</span>
+</button>
+<script>
+document.querySelectorAll('.cy').forEach(function(el){ el.textContent = new Date().getFullYear(); });
+function toggleLangFloat(){
+  var isZh = document.body.classList.contains('lang-zh');
+  setLang(isZh ? 'en' : 'zh');
+  document.getElementById('lang-float-label').textContent = isZh ? '中文' : 'EN';
+}
+(function(){
+  var s = localStorage.getItem('lolu-lang') || 'en';
+  document.getElementById('lang-float-label').textContent = s === 'zh' ? 'EN' : '中文';
+})();
+</script>
+</body>
+</html>
