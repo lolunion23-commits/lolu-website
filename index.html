@@ -228,10 +228,6 @@
     <li><a href="contact.html"><span class="en">Contact</span><span class="zh">联系我们</span></a></li>
   </ul>
   <div class="nav-right">
-    <div class="lang-toggle">
-      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" id="btn-zh" onclick="setLang('zh')">中文</button>
-    </div>
     <a href="https://www.zeffy.com/en-US/donation-form/light-of-life-union-lolu" target="_blank" class="nav-donate">
       <span class="en">Donate</span><span class="zh">捐款</span>
     </a>
@@ -529,8 +525,6 @@
 /* ── Language ── */
 function setLang(lang) {
   document.body.classList.toggle('lang-zh', lang === 'zh');
-  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
   document.documentElement.lang = lang === 'zh' ? 'zh' : 'en';
   localStorage.setItem('lolu-lang', lang);
 }

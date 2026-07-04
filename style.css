@@ -159,7 +159,6 @@ body.lang-zh span.zh { display: inline; }
   .nav-center li { width: 100%; }
   .nav-center a { padding: 12px 16px; font-size: 15px; display: block; width: 100%; border-radius: 8px; }
   .nav-toggle { display: flex; }
-  .nav-donate { display: none; }
   .footer-grid { grid-template-columns: 1fr; gap: 36px; }
   .site-footer { padding: 48px 24px 28px; }
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: 10px; }
