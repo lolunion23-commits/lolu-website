@@ -148,7 +148,10 @@ body.lang-zh span.zh { display: inline; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
-  .site-nav { padding: 0 20px; }
+  .site-nav { padding: 0 16px; }
+  .nav-brand-sub { display: none; }
+  .nav-logo { width: 44px; height: 44px; }
+  .nav-donate { font-size: 12px; padding: 7px 12px; }
   .nav-center {
     display: none; flex-direction: column; position: absolute;
     top: 72px; left: 0; right: 0; background: var(--green);
